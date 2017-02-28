@@ -107,7 +107,7 @@ class PythonSerialMonitor():
 
         while True:
             if not self.input_queue.empty():
-                keyboardInput = self.input_queue.get()
+                keyboardInput = bytes(self.input_queue.get(), 'ascii')
                 print("Keyboard: " + keyboardInput)
                 self.ser.write(keyboardInput)
                 if ord(keyboardInput) == 27:
