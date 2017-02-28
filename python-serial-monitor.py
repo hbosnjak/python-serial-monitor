@@ -8,7 +8,7 @@
 import sys
 import threading
 import time
-import Queue
+import queue
 import serial
 
 
@@ -31,9 +31,9 @@ class PythonSerialMonitor():
             tty.setcbreak(self.fd)
             self.unix = True
 
-        self.input_queue = Queue.Queue()
-        self.stop_queue = Queue.Queue()
-        self.pause_queue = Queue.Queue()
+        self.input_queue = queue.Queue()
+        self.stop_queue = queue.Queue()
+        self.pause_queue = queue.Queue()
 
         self.input_thread = threading.Thread(target=self.add_input, args=(self.input_queue,self.stop_queue,self.pause_queue,))
         self.input_thread.daemon = True
@@ -79,7 +79,7 @@ class PythonSerialMonitor():
             for baseport in baseports:
                 if self.ser:
                     break
-                for i in xrange(0, 64):
+                for i in range(0, 64):
                     try:
                         port = baseport + str(i)
                         self.ser = serial.Serial(port, baud, timeout=1)
